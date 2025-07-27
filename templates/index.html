@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ article.title }}</h1>
+<div class="article-meta">
+    <span>作者: {{ article.author.username }}</span>
+    <span>发布时间: {{ article.created_at|date:"Y-m-d H:i" }}</span>
+</div>
+
+<div class="article-content">
+    {{ article.content|linebreaks }}
+</div>
+
+<div class="article-stats">
+    <h3>阅读统计</h3>
+    <p>总阅读次数: {{ stats.total_views }}</p>
+    <p>独立访客数: {{ stats.unique_views }}</p>
+
+    {% if request.user.is_staff %}
+    <div class="user-stats">
+        <h4>用户阅读统计</h4>
+        <ul>
+            {% for user_id, count in stats.user_views.items %}
+            <li>用户 {{ user_id }}: {{ count }} 次</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
