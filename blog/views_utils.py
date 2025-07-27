@@ -1,4 +1,5 @@
 import time
+import os
 
 from .models import ArticleViewStats, UserArticleView
 from .redis_utils import RedisManager
